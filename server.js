@@ -1,39 +1,22 @@
 import express from "express";
+import routes from "./src/routes/postroutes.js";
+// Importa as dependências necessárias: o framework Express para criar a aplicação web e a função para conectar ao banco de dados.
+
+// Cria uma instância do Express, que será o núcleo da nossa aplicação.
 const app = express();
-const posts = [
-    {
-        descricao: "Uma foto teste",
-        imagem: "https://placecats.com/millie/300/150",
-        id: 1
-      },
-      {
-        descricao: "gato fazendo yoga",
-        imagem: "https://placecats.com/millie/300/150",
-        id: 2
-      },
-      {
-        descricao: "gato fazendo panqueca",
-        imagem: "https://placecats.com/millie/300/150",
-        id: 3
-      }
-];
-app.use(express.json());
+routes(app);
 
-function buscarPostPorId(id){
-    return posts.findIndex((post)=>{
-        return post.id === Number(id)
-    });
-}
-
+// Inicia o servidor Express na porta 3000 e exibe uma mensagem no console.
 app.listen(3000,() =>{
     console.log("Servidor Iniciado!");
 });
 
-app.get("/posts",(req,res)=>{
-    res.status(200).json(posts);
-});
 
-app.get("/posts/:id",(req,res)=>{
-    const index = buscarPostPorId(req.params.id);
-    res.status(200).json(posts[index]);
-});
+// function buscarPostPorId(id){
+//     // Define uma função para buscar um post específico pelo ID no array de posts.
+//     // **Observação:** Essa função seria desnecessária em um cenário real onde todos os dados são obtidos do banco de dados.
+//     return posts.findIndex((post)=>{
+//         return post.id === Number(id)
+//     });
+//     // Utiliza o método findIndex para encontrar o índice do post com o ID correspondente no array.
+// }
